@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: My Sports Equipment API
+  description: API operations of cataloging my sports equipment
+  version: v1.0
+paths:
+  "/equipment":
+    $ref: "./modules/equipment.yaml"
+  "/equipment/{itemId}":
+    put:
+      summary: Update an equipment item to the catalog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemData"
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid request
+        "404":
+          description: Not Found
+    delete:
+      summary: Delete an equipment item from the catalog
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Not Found
+components:
+  schemas:
+    ItemData:
+      type: object
+      required:
+        - name
+        - condition
+        - price
+      properties:
+        name:
+          type: string
+          example: rubber basketball
+        condition:
+          type: string
+          example: good
+        price:
+          type: number
+          format: currency
+          example: 5.99
+    Item:
+      allOf:
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              example: 1
+        - $ref: "#/components/schemas/ItemData"

@@ -1,0 +1,23 @@
+get:
+  summary: List all my sports equipment
+  responses:
+    "200":
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../swagger.yaml#/components/schemas/Item"
+post:
+  summary: Add a new equipment item to the catalog
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../swagger.yaml#/components/schemas/Item"
+  responses:
+    "200":
+      description: Successful operation
+    "400":
+      description: Invalid request
